@@ -5,6 +5,7 @@ export const pageTitles: Record<string, string> = {
   "/login": "Connexion",
   "/admin/dashboard": "Dashboard",
   "/admin/artists": "Gestion des artistes",
+  "/admin/artworks": "Oeuvres d'arts",
   "/artwork/*": "Détails de l'œuvre - Hackathon 2024",
 };
 

@@ -10,6 +10,7 @@ import GalleryPage from "@/features/public/gallery/page/GalleryPage";
 import ArtworkDetailPage from "@/features/public/details/pages/ArtworkDetailPage";
 import ExplorerPage from "@/features/public/explorer/page/ExplorerPage";
 import ArtistsPage from "@/features/admin/artists/page/ArtistsPage";
+import ArtworksPage from "@/features/admin/artworks/page/ArtworksPage";
 
 export const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
@@ -44,6 +45,7 @@ export const AppRoutes = () => {
         >
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="artists" element={<ArtistsPage />} />
+          <Route path="artworks" element={<ArtworksPage />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

@@ -68,3 +68,9 @@ export interface ArtworkListResponse {
     totalPages: number;
   };
 }
+
+export interface ArtworkFormData {
+  title: string;
+  artistId: string;
+  roomType?: 'MODERN_ART' | 'HISTORY';
+}

@@ -3,6 +3,7 @@ import {
   Users,
   Palette,
   Image,
+  OmegaIcon,
   Languages,
   Panda,
   MapPin,
@@ -41,6 +42,7 @@ const adminNavItems = [
     href: '/admin/artworks', 
     icon: Palette,
     subItems: [
+      { title: "Oeuvre d'art", href: '/admin/artworks', icon: OmegaIcon },
       { title: 'Médias', href: '/admin/artworks/media', icon: Image },
       { title: 'Traductions', href: '/admin/artworks/translations', icon: Languages }
     ]
