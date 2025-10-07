@@ -6,21 +6,17 @@ import { useAuthStore } from "@/stores/auth.store";
 import { useEffect } from "react";
 
 export const MainLayout = () => {
-  const { user, initializeAuth } = useAuthStore((state) => ({
-    user: state.user,
-    initializeAuth: state.initializeAuth,
-  }));
+  const initializeAuth = useAuthStore((state) => state.initializeAuth);
+  const user = useAuthStore((state) => state.user);
 
   useEffect(() => {
     initializeAuth();
-  }, [initializeAuth]);
+  }, [initializeAuth]); // maintenant stable, pas de boucle
 
   return (
     <SidebarProvider>
       <div className="flex min-h-screen w-full">
         <AppSidebar userRole={user?.role} />
-
-        {/* Utiliser SidebarInset pour englober header + main */}
         <SidebarInset className="flex flex-col flex-1">
           <Header />
           <main className="flex-1 p-4">

@@ -8,6 +8,7 @@ interface AuthStore {
   user: ApiUser | null;
   token: string | null;
   isAuthenticated: boolean;
+  initialized: boolean;
   isLoading: boolean;
   setUser: (data: LoginResponse) => void;
   logout: (reason?: string) => void;
@@ -21,6 +22,7 @@ export const useAuthStore = create<AuthStore>()(
       token: null,
       isAuthenticated: false,
       isLoading: true,
+      initialized: false,
 
       setUser: (data: LoginResponse) => {
         set({
@@ -43,24 +45,30 @@ export const useAuthStore = create<AuthStore>()(
       },
 
       initializeAuth: async () => {
-        const { token } = get();
-        if (!token) {
-          set({ isAuthenticated: false, isLoading: false });
-          return;
-        }
+  const { token, initialized } = get();
+  if (initialized) return; // évite boucle infinie
+  set({ initialized: true, isLoading: true });
 
-        const isAdminRoute = window.location.pathname.startsWith("/admin");
-        if (isAdminRoute) {
-          try {
-            const user = await authApi.getCurrentUser();
-            set({ user, isAuthenticated: true, isLoading: false });
-          } catch {
-            get().logout("Session expirée. Veuillez vous reconnecter.");
-          }
-        } else {
-          set({ isAuthenticated: false, isLoading: false });
-        }
-      },
+  if (!token) {
+    set({ isAuthenticated: false, isLoading: false });
+    return;
+  }
+
+  const isAdminRoute = window.location.pathname.startsWith("/admin");
+  if (isAdminRoute) {
+    try {
+      const user = await authApi.getCurrentUser();
+      set({ user, isAuthenticated: true, isLoading: false });
+    } catch {
+      get().logout("Session expirée. Veuillez vous reconnecter.");
+      set({ isLoading: false });
+    }
+  } else {
+    set({ isAuthenticated: false, isLoading: false });
+  }
+}
+
+,
     }),
     {
       name: "auth-storage",

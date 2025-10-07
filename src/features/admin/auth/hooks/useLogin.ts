@@ -5,7 +5,6 @@ import type { LoginCredentials, LoginResponse } from "@/types/auth.type";
 import { authApi } from "@/api/endpoints/auth";
 import { apiUtils } from "@/utils/apiUtils";
 import { useNavigate } from "react-router-dom";
-import { redirectToDashboard } from "../utils/roleUtils";
 
 export const useLogin = () => {
   const setUser = useAuthStore((state) => state.setUser);
@@ -19,7 +18,7 @@ export const useLogin = () => {
       toast.success("Connexion réussie", {
         description: `Bienvenue ${data.user.prenom} !`,
       });
-      redirectToDashboard(data.user.role, navigate);
+      navigate("/admin/dashboard");
     },
 
     onError: (error: unknown) => {

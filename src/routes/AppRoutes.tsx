@@ -12,7 +12,6 @@ import ExplorerPage from "@/features/public/explorer/page/ExplorerPage";
 
 export const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
-
   return (
     <PageWrapper>
       <Routes>

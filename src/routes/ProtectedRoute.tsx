@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
-import { useAuthStore } from '@/stores/auth.store';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { Loader2 } from 'lucide-react';
+import { useEffect } from "react";
+import { useAuthStore } from "@/stores/auth.store";
+import { useNavigate, useLocation } from "react-router-dom";
+import { Loader2 } from "lucide-react";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  requiredRole?: 'admin';
+  requiredRole?: "admin";
 }
 
 export const ProtectedRoute = ({ children, requiredRole }: ProtectedRouteProps) => {
@@ -15,42 +15,30 @@ export const ProtectedRoute = ({ children, requiredRole }: ProtectedRouteProps) 
 
   useEffect(() => {
     if (!isLoading) {
+      // Si pas authentifié, redirige vers login
       if (!isAuthenticated) {
-        navigate('/login', { 
-          state: { from: location },
-          replace: true 
-        });
+        navigate("/login", { state: { from: location }, replace: true });
         return;
       }
 
+      // Si rôle requis et rôle incorrect, redirige vers unauthorized
       if (requiredRole && user?.role !== requiredRole) {
-        navigate('/unauthorized', { replace: true });
+        navigate("/unauthorized", { replace: true });
         return;
       }
     }
-  }, [isAuthenticated, isLoading, navigate, location, requiredRole, user]);
+  }, [isLoading, isAuthenticated, user, requiredRole, navigate, location]);
 
+  // Affiche loader uniquement pendant l'initialisation
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="flex flex-col items-center gap-4">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          <p className="text-muted-foreground">Chargement de la session...</p>
-        </div>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-background">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <p className="text-muted-foreground mt-2">Chargement de la session...</p>
       </div>
     );
   }
 
-  if (!isAuthenticated || (requiredRole && user?.role !== requiredRole)) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="flex flex-col items-center gap-4">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          <p className="text-muted-foreground">Redirection...</p>
-        </div>
-      </div>
-    );
-  }
-
+  // Dès que isLoading=false et que l'utilisateur est autorisé, on rend le contenu
   return <>{children}</>;
 };
