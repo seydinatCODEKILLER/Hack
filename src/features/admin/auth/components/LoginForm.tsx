@@ -112,10 +112,10 @@ export const LoginForm = () => {
       <div className="flex w-full md:w-1/2 items-center justify-center bg-background p-6 md:p-12">
         <div
           ref={formRef}
-          className="w-full max-w-md space-y-6 bg-white dark:bg-gray-900 shadow-2xl rounded-2xl p-8 border border-gray-100 dark:border-gray-800"
+          className="w-full max-w-md space-y-6 bg-white dark:bg-gray-900 shadow-2xl rounded-2xl p-6 border border-gray-100 dark:border-gray-800"
         >
           <div className="text-center">
-            <h2 className="text-2xl font-semibold text-foreground mb-2">
+            <h2 className="text-md md:text-lg lg:text-2xl font-semibold text-foreground mb-2">
               Connexion à l’espace administrateur
             </h2>
             <p className="text-muted-foreground text-sm">

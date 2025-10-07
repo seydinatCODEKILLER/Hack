@@ -9,6 +9,7 @@ import LandingPage from "@/features/public/landingPage/page/LandingPage";
 import GalleryPage from "@/features/public/gallery/page/GalleryPage";
 import ArtworkDetailPage from "@/features/public/details/pages/ArtworkDetailPage";
 import ExplorerPage from "@/features/public/explorer/page/ExplorerPage";
+import ArtistsPage from "@/features/admin/artists/page/ArtistsPage";
 
 export const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
@@ -42,6 +43,7 @@ export const AppRoutes = () => {
           }
         >
           <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="artists" element={<ArtistsPage />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

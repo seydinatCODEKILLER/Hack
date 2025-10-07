@@ -18,3 +18,10 @@ export interface ArtistListResponse {
     totalPages: number;
   };
 }
+
+export interface ArtistFormData {
+  nom: string;
+  prenom: string;
+  bio?: string;
+  avatar?: File | string;
+}
