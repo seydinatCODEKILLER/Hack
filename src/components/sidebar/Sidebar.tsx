@@ -43,8 +43,8 @@ const adminNavItems = [
     icon: Palette,
     subItems: [
       { title: "Oeuvre d'art", href: '/admin/artworks', icon: OmegaIcon },
-      { title: 'Médias', href: '/admin/artworks/media', icon: Image },
-      { title: 'Traductions', href: '/admin/artworks/translations', icon: Languages }
+      { title: 'Médias', href: '/admin/media', icon: Image },
+      { title: 'Traductions', href: '/admin/translations', icon: Languages }
     ]
   },
   { 
@@ -52,7 +52,8 @@ const adminNavItems = [
     href: '/admin/panoramas', 
     icon: Panda,
     subItems: [
-      { title: 'Hotspots', href: '/admin/panoramas/hotspots', icon: MapPin }
+      { title: 'Panorama General', href: '/admin/hotspots', icon: Palette },
+      { title: 'Hotspots', href: '/admin/hotspots', icon: MapPin }
     ]
   },
 ];

@@ -17,7 +17,18 @@ export const MediaType = {
 
 export type MediaType = typeof MediaType[keyof typeof MediaType];
 
+export interface ArtworkMedia {
+  id: string;
+  artworkId: string;
+  type: MediaType;
+  url: string;
+  createdAt: string;
+}
 
+export interface ArtworkMediaFormData {
+  type: MediaType;
+  file: File;
+}
 export interface Artist {
   id: string;
   nom: string;
