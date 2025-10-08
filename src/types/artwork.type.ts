@@ -1,5 +1,4 @@
 export type RoomType = 'MODERN_ART' | 'HISTORY';
-export type TranslationStatus = 'draft' | 'published';
 
 export const Lang = {
   FR: 'FR',
@@ -16,6 +15,13 @@ export const MediaType = {
 } as const;
 
 export type MediaType = typeof MediaType[keyof typeof MediaType];
+
+export const TranslationStatus = {
+  DRAFT: 'draft',
+  PUBLISHED: 'published'
+} as const;
+
+export type TranslationStatus = typeof TranslationStatus[keyof typeof TranslationStatus];
 
 export interface ArtworkMedia {
   id: string;
@@ -68,6 +74,24 @@ export interface Artwork {
   
   translations: ArtworkTranslation[];
   media: ArtworkMedia[];
+}
+
+export interface ArtworkTranslationForAdmin {
+  id: string;
+  artworkId: string;
+  lang: Lang;
+  title?: string;
+  description: string;
+  status: TranslationStatus;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ArtworkTranslationFormData {
+  lang: Lang;
+  title?: string;
+  description: string;
+  status?: TranslationStatus;
 }
 
 export interface ArtworkListResponse {

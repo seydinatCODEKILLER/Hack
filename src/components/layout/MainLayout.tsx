@@ -2,16 +2,10 @@ import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { Outlet } from "react-router-dom";
 import { AppSidebar } from "../sidebar/Sidebar";
 import { Header } from "../header/Header";
-import { useAuthStore } from "@/stores/auth.store";
-import { useEffect } from "react";
+import { useAuth } from "@/features/admin/auth/hooks/useAuth";
 
 export const MainLayout = () => {
-  const initializeAuth = useAuthStore((state) => state.initializeAuth);
-  const user = useAuthStore((state) => state.user);
-
-  useEffect(() => {
-    initializeAuth();
-  }, [initializeAuth]); // maintenant stable, pas de boucle
+  const { user } = useAuth();
 
   return (
     <SidebarProvider>

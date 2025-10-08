@@ -8,7 +8,6 @@ interface AuthStore {
   user: ApiUser | null;
   token: string | null;
   isAuthenticated: boolean;
-  initialized: boolean;
   isLoading: boolean;
   setUser: (data: LoginResponse) => void;
   logout: (reason?: string) => void;
@@ -22,7 +21,6 @@ export const useAuthStore = create<AuthStore>()(
       token: null,
       isAuthenticated: false,
       isLoading: true,
-      initialized: false,
 
       setUser: (data: LoginResponse) => {
         set({
@@ -45,9 +43,7 @@ export const useAuthStore = create<AuthStore>()(
       },
 
       initializeAuth: async () => {
-  const { token, initialized } = get();
-  if (initialized) return; // évite boucle infinie
-  set({ initialized: true, isLoading: true });
+  const { token } = get();
 
   if (!token) {
     set({ isAuthenticated: false, isLoading: false });
@@ -73,6 +69,14 @@ export const useAuthStore = create<AuthStore>()(
     {
       name: "auth-storage",
       partialize: (state) => ({ user: state.user, token: state.token }),
-    }
-  )
+      onRehydrateStorage: () => (state, error) => {
+              if (error) {
+                console.error("Auth rehydration error", error);
+              }
+              if (state?.token) {
+                state.isAuthenticated = true;
+                state.isLoading = false;
+              }
+            },
+    })
 );

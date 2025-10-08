@@ -6,11 +6,11 @@ import { toast } from 'sonner';
 export const useArtworks = (
   page: number = 1,
   pageSize: number = 12,
-  filters: { search?: string; artistSearch?: string; includeInactive?: boolean } = {}
+  filters: { search?: string; artistSearch?: string; titleSearch?: string; includeInactive?: boolean } = {}
 ) => {
   return useQuery({
     queryKey: ['artworks', 'list', page, pageSize, filters],
-    queryFn: () => artworksApi.getAllForAdmin(page, pageSize, filters.search, filters.artistSearch, filters.includeInactive),
+    queryFn: () => artworksApi.getAllForAdmin(page, pageSize, filters.search, filters.artistSearch,filters.titleSearch, filters.includeInactive),
     staleTime: 5 * 60 * 1000,
   });
 };
