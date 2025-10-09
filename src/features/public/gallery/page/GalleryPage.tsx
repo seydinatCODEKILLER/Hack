@@ -2,6 +2,9 @@ import { useState, useRef, useEffect } from 'react';
 import { GalleryGrid } from '../components/GalleryGrid';
 import { gsap } from "gsap";
 import { GalleryFilters } from '../components/GalleryFilters';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function GalleryPage() {
   const [filters, setFilters] = useState({
@@ -9,6 +12,7 @@ export default function GalleryPage() {
   });
   const pageRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const initAnimations = async () => {
@@ -47,6 +51,15 @@ export default function GalleryPage() {
   return (
     <div ref={pageRef} className="min-h-screen bg-background pt-20">
       <div className="container mx-auto px-4 py-8">
+        <div className="mb-6">
+          <Button 
+            variant="ghost" 
+            onClick={() => navigate('/')}
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Retour à l'accueil
+          </Button>
+        </div>
         {/* Header avec animations */}
         <div ref={headerRef} className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4">Galerie des Œuvres</h1>

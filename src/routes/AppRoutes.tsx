@@ -13,6 +13,7 @@ import ArtistsPage from "@/features/admin/artists/page/ArtistsPage";
 import ArtworksPage from "@/features/admin/artworks/page/ArtworksPage";
 import ArtworkMediaPage from "@/features/admin/media/page/ArtworkMediaPage";
 import ArtworkTranslationsPage from "@/features/admin/translations/page/ArtworkTranslationsPage";
+import HotspotsManagementPage from "@/features/admin/hotspots/page/HotspotsManagementPage";
 
 export const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
@@ -50,6 +51,7 @@ export const AppRoutes = () => {
           <Route path="artworks" element={<ArtworksPage />} />
           <Route path="media" element={<ArtworkMediaPage />} />
           <Route path="translations" element={<ArtworkTranslationsPage />} />
+          <Route path="hotspots" element={<HotspotsManagementPage />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

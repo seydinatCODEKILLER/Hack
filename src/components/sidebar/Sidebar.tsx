@@ -52,7 +52,7 @@ const adminNavItems = [
     href: '/admin/panoramas', 
     icon: Panda,
     subItems: [
-      { title: 'Panorama General', href: '/admin/hotspots', icon: Palette },
+      { title: 'Images', href: '/admin/visites', icon: Palette },
       { title: 'Hotspots', href: '/admin/hotspots', icon: MapPin }
     ]
   },

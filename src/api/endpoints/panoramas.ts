@@ -1,7 +1,22 @@
 import { apiClient, type ApiResponse } from '@/api/client';
+import type { PanoramaForAdmin } from '@/types/pano.type';
 import type { Panorama, PanoramaResponse } from '@/types/panorama.types';
 
 export const panoramasApi = {
+
+  getAllForAdmin: async (filters?: { search?: string }): Promise<PanoramaForAdmin[]> => {
+  const response = await apiClient.get<ApiResponse<{ panoramas: PanoramaForAdmin[], pagination: any }>>(
+    '/panoramas',
+    { params: filters }
+  );
+
+  if (!response.data.success) {
+    throw new Error(response.data.message || 'Erreur lors de la récupération des panoramas pour admin');
+  }
+
+  // ✅ On renvoie le tableau de panoramas uniquement
+  return response.data.data.panoramas;
+},
   // Récupérer tous les panoramas actifs
   getAll: async (): Promise<Panorama[]> => {
     const response = await apiClient.get<ApiResponse<PanoramaResponse>>('/panoramas?isActive=true');

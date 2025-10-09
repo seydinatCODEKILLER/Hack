@@ -1,20 +1,23 @@
-import { useState } from 'react';
-import { PanoramaViewer } from '../components/PanoramaViewer';
-import { ArtworkModal } from '../components/ArtworkModal';
-import { usePanorama } from '../hooks/usePanorama';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Button } from '@/components/ui/button';
-import { RefreshCw, Compass, Navigation } from 'lucide-react';
-import type { Artwork } from '@/types/artwork.type';
+import { useState } from "react";
+import { PanoramaViewer } from "../components/PanoramaViewer";
+import { ArtworkModal } from "../components/ArtworkModal";
+import { usePanorama } from "../hooks/usePanorama";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+import { RefreshCw, Compass, Navigation, ArrowLeft } from "lucide-react";
+import type { Artwork } from "@/types/artwork.type";
+import { useNavigate } from "react-router-dom";
 
 export default function ExplorerPage() {
   const { data: panorama, isLoading, error, refetch } = usePanorama();
-  console.log('Panorama chargé :', panorama);
+  console.log("Panorama chargé :", panorama);
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleArtworkClick = (artwork: Artwork) => {
-    console.log('Œuvre sélectionnée :', artwork);
+    console.log("Œuvre sélectionnée :", artwork);
     setSelectedArtwork(artwork);
     setIsModalOpen(true);
   };
@@ -31,7 +34,7 @@ export default function ExplorerPage() {
           <Compass className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
           <h1 className="text-2xl font-bold mb-4">Erreur de chargement</h1>
           <p className="text-muted-foreground mb-4">
-            {error.message || 'Impossible de charger le panorama'}
+            {error.message || "Impossible de charger le panorama"}
           </p>
           <Button onClick={() => refetch()}>
             <RefreshCw className="w-4 h-4 mr-2" />
@@ -46,12 +49,19 @@ export default function ExplorerPage() {
     <div className="min-h-screen bg-background">
       {/* En-tête */}
       <div className="container mx-auto px-4 pt-20 pb-4">
+        <div className="mb-6">
+          <Button variant="ghost" onClick={() => navigate("/")}>
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Retour à l'accueil
+          </Button>
+        </div>
         <div className="text-center mb-4">
           <h1 className="text-3xl font-bold mb-2">
-            {panorama?.title || 'Explorer le Musée'}
+            {panorama?.title || "Explorer le Musée"}
           </h1>
           <p className="text-muted-foreground">
-            {panorama?.description || 'Naviguez dans l\'espace virtuel et découvrez les œuvres'}
+            {panorama?.description ||
+              "Naviguez dans l'espace virtuel et découvrez les œuvres"}
           </p>
         </div>
       </div>
@@ -68,11 +78,11 @@ export default function ExplorerPage() {
           </div>
         ) : panorama ? (
           <>
-            <PanoramaViewer 
+            <PanoramaViewer
               panorama={panorama}
               onArtworkClick={handleArtworkClick}
             />
-            
+
             {/* Indicateur de navigation */}
             <div className="absolute bottom-4 left-4 bg-background/80 backdrop-blur-sm rounded-lg p-3">
               <div className="flex items-center gap-2 text-sm">

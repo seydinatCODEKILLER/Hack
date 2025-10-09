@@ -1,4 +1,10 @@
-export type RoomType = 'MODERN_ART' | 'HISTORY';
+
+export const RoomTypes = {
+  MODERN_ART: 'MODERN_ART',
+  HISTORY: 'HISTORY',
+} as const;
+
+export type RoomType = typeof RoomTypes[keyof typeof RoomTypes];
 
 export const Lang = {
   FR: 'FR',
